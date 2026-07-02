@@ -14,14 +14,14 @@ Something to note is that many modern routers will not send important informatio
 
 ### Overview
 In demo \#1, we will start sniffing the wifi traffic with tshark and save the raw captured packets to a file. Then we will reconstruct the media using the provided python script and then convert it into a watchable video with ffmpeg. Although not technically required, this demo is designed such that it relies on be able to capture the beginning metadata. Additionally, this demo assumes you know the camera system's IP address which is reasonable to find if you just scan for rtsp packets using wireshark. 
-Commands will be italicized and adjustable data will be underlined.
+Commands will be italicized and adjustable data will be bolded.
 
 
 ### Step 1
 In powershell, execute the command _tshark -D_. This will reveal the network iterfaces of your device. You will need to find the one you need to sniff. In the author's case, this was interface 4 for Wi-Fi. note the number associated with it.
 
 ### Step 2
-In powershell, cd into the same directory as extract_h265.py and execute the command *tshark -i <u>4</u> -f "<u>host clientIP and host serverIP</u>" -w captured.pcap*. 
+In powershell, cd into the same directory as extract_h265.py and execute the command *tshark -i **4** -f "**host clientIP and host serverIP**" -w captured.pcap*. 
 * The -i option indicates which interface tshark should scan for. 
 * The -f option indicates which filters you would like to use. The author recommends "host clientIP and host serverIP" where clientIP is the IP address of the other system watching the stream (which in this case will be the same IP as the one executing the tshark) and serverIP is the IP address of the camera system. 
 * The -w option indicates where to write the output data.
@@ -64,7 +64,7 @@ Open an rtsp stream in vlc player.
 Open wireshark and sniff on the same interface that you will connect to the server. Filter only the packets that are to or from the server's IP address. ex: ip.addr == 11.11.11.11 
 
 ### Step 3
-Log onto the admin system with http://<u>serverIP</u>:<u>http_port</u> on one of your browsers. Once you are in, click a few buttons.
+Log onto the admin system with http://**serverIP**:**http_port** on one of your browsers. Once you are in, click a few buttons.
 
 ### Step 4
 Stop recording on wireshark. use Ctrl+f to find a packet with "cookie" in the packet details. It will be under the Hyper text transfer protocol tab. find it, right click on the cookie tab and click copy then click value.
@@ -72,9 +72,9 @@ Stop recording on wireshark. use Ctrl+f to find a packet with "cookie" in the pa
 ### Step 5
 Once you get the cookie, replace the cookie and the IP address in the following curl command and execute it.
 
-*curl.exe ^"http://<u>serverIP</u>/ISAPI/System/reboot^" ^*
+*curl.exe ^"http://**serverIP**/ISAPI/System/reboot^" ^*
   *-X PUT ^*
-  *-H ^"Cookie: <u>cookie</u>^"*
+  *-H ^"Cookie: **cookie**^"*
 
 
 ### Step 6
